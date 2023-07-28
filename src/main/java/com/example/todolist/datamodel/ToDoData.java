@@ -32,9 +32,9 @@ public class ToDoData {
         return todoItems;
     }
 
-    public void setTodoItems(List<ToDoItem> todoItems) {
-        this.todoItems = todoItems;
-    }
+//    public void setTodoItems(List<ToDoItem> todoItems) {
+//        this.todoItems = todoItems;
+//    }
 
     public void loadToDoItems() throws IOException {
         todoItems = FXCollections.observableArrayList();
@@ -69,7 +69,7 @@ public class ToDoData {
             Iterator<ToDoItem> iter = todoItems.iterator();
             while(iter.hasNext()) {
                 ToDoItem item = iter.next();
-                bw.write(String.format("%s\t%S\t%s",
+                bw.write(String.format("%s\t%s\t%s",
                        item.getDetails(),
                         item.getDetails(),
                         item.getDeadLine().format(formatter)));
