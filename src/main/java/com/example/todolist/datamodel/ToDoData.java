@@ -28,14 +28,6 @@ public class ToDoData {
         formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     }
 
-    public List<ToDoItem> getTodoItems() {
-        return todoItems;
-    }
-
-//    public void setTodoItems(List<ToDoItem> todoItems) {
-//        this.todoItems = todoItems;
-//    }
-
     public void loadToDoItems() throws IOException {
         todoItems = FXCollections.observableArrayList();
         Path path = Paths.get(filename);
@@ -81,4 +73,16 @@ public class ToDoData {
             }
         }
     }
+
+    public List<ToDoItem> getTodoItems() {
+        return todoItems;
+    }
+
+    public void addToDoItem(ToDoItem item) {
+    }
+
+    //    public void setTodoItems(List<ToDoItem> todoItems) {
+//        this.todoItems = todoItems;
+//    }
+
 }

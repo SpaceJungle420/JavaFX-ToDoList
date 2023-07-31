@@ -6,13 +6,13 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 public class MainWindowController {
     private List<ToDoItem> todoItems;
@@ -23,7 +23,7 @@ public class MainWindowController {
     @FXML
     private Label deadlineLabel;
     @FXML
-    public BorderPane mainBorderPain;
+    public BorderPane mainBorderPane;
 
     public void initialize() {
 //        ToDoItem item1 = new ToDoItem("Mail birthday card", "Buy a 30th birthday card for jhon",
@@ -66,16 +66,30 @@ public class MainWindowController {
     @FXML
     public void showNewItemDialog() {
         Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.initOwner(mainBorderPain.getScene().getWindow());
+        dialog.initOwner(mainBorderPane.getScene().getWindow());
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("todoItemDialog.fxml"));
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("todoItemDialog.fml"));
-            dialog.getDialogPane().setContent(root);
+            dialog.getDialogPane().setContent(fxmlLoader.load());
         } catch(IOException e) {
-            System.out.println("Couldn't load the ialog");
+            System.out.println("Couldn't load the dialog");
             e.printStackTrace();
             return;
         }
+
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+
+        Optional<ButtonType> result = dialog.showAndWait();
+        if(result.isPresent() && result.get() == ButtonType.OK) {
+            DialogController controller = fxmlLoader.getController();
+            controller.processResults();
+            System.out.println("OK pressed");
+        } else {
+            System.out.println("Cancel pressed");
+        }
     }
+
     @FXML
     public void handleClickListView() {
         ToDoItem item = todoListView.getSelectionModel().getSelectedItem();
