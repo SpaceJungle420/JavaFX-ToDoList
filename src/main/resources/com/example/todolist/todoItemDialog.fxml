@@ -12,7 +12,7 @@
             <Label text="Details" GridPane.rowIndex="1" GridPane.columnIndex="0" />
             <TextArea fx:id="detailsArea" GridPane.rowIndex="1" GridPane.columnIndex="1" />
             <Label text="Deadline:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
-            <DatePicker fx:id="deadLinePicker" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+            <DatePicker fx:id="deadlinePicker" GridPane.rowIndex="2" GridPane.columnIndex="1" />
         </GridPane>
     </content>
 </DialogPane>

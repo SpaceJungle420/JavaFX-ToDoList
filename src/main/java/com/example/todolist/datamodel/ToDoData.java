@@ -79,6 +79,7 @@ public class ToDoData {
     }
 
     public void addToDoItem(ToDoItem item) {
+        todoItems.add(item);
     }
 
     //    public void setTodoItems(List<ToDoItem> todoItems) {
