@@ -74,6 +74,10 @@ public class ToDoData {
         }
     }
 
+    public void deleteToDoItem(ToDoItem item) {
+        todoItems.remove(item);
+    }
+
     public ObservableList<ToDoItem> getTodoItems() {
         return todoItems;
     }
