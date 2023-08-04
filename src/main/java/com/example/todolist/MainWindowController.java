@@ -4,6 +4,7 @@ import com.example.todolist.datamodel.ToDoData;
 import com.example.todolist.datamodel.ToDoItem;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,6 +19,7 @@ import javafx.util.Callback;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +35,8 @@ public class MainWindowController {
     public BorderPane mainBorderPane;
     @FXML
     ContextMenu listContextMenu;
+    @FXML
+    private ToggleButton filterToggleButton;
 
     public void initialize() {
 //        ToDoItem item1 = new ToDoItem("Mail birthday card", "Buy a 30th birthday card for jhon",
@@ -78,7 +82,16 @@ public class MainWindowController {
             }
         });
 
-        todoListView.setItems(ToDoData.getInstance().getTodoItems());
+        SortedList<ToDoItem> sortedList = new SortedList<ToDoItem>(ToDoData.getInstance().getTodoItems(),
+                new Comparator<ToDoItem>() {
+                    @Override
+                    public int compare(ToDoItem o1, ToDoItem o2) {
+                        return o1.getDeadLine().compareTo(o2.getDeadLine());
+                    }
+                });
+
+//        todoListView.setItems(ToDoData.getInstance().getTodoItems());
+        todoListView.setItems(sortedList);
         todoListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         todoListView.getSelectionModel().selectFirst();
 
@@ -174,6 +187,13 @@ public class MainWindowController {
 
         if(result.isPresent() && (result.get() == ButtonType.OK)) {
             ToDoData.getInstance().deleteToDoItem(item);
+        }
+    }
+    public void handleFilterButton() {
+        if(filterToggleButton.isSelected()) {
+
+        } else {
+
         }
     }
 }
